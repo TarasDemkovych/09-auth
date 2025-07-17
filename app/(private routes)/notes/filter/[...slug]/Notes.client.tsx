@@ -5,20 +5,20 @@ import css from "./page.module.css";
 import NoteList from "@/components/NoteList/NoteList";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
-import { fetchNotes, FetchNotesHTTPResponse } from "@/lib/api";
+import { fetchNotes, } from "@/lib/api/clientApi";
 import SearchBox from "@/components/SearchBox/SearchBox";
 import Loader from "@/components/Loader/Loader";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import Pagination from "@/components//Pagination/Pagination";
 import Link from "next/link";
-import { Tag } from "@/types/note";
+
 
 interface NotesClientProps {
-  initialData?: FetchNotesHTTPResponse;
-  tag?: Tag;
+  
+  tag?: string;
 }
 
-export default function NotesClient({ initialData, tag }: NotesClientProps) {
+export default function NotesClient({ tag }: NotesClientProps) {
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
   const [debouncedQuery] = useDebounce(query, 400);
@@ -31,7 +31,7 @@ export default function NotesClient({ initialData, tag }: NotesClientProps) {
     queryKey: ["notes", tag, debouncedQuery, page],
     queryFn: () => fetchNotes({ page: page, search: debouncedQuery, tag: tag }),
     placeholderData: keepPreviousData,
-    initialData,
+    
   });
 
   return (

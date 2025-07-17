@@ -1,11 +1,11 @@
 "use client";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createNote } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import css from "./NoteForm.module.css";
 import { NewNoteData, Tag } from "@/types/note";
 import { useNoteDraftStore } from "@/lib/store/noteStore";
+import { createNote } from "@/lib/api/clientApi";
 
 export default function NoteForm() {
   const router = useRouter();
@@ -35,18 +35,15 @@ export default function NoteForm() {
   };
 
   const handleSubmit = (formData: FormData) => {
-    const content = formData.get("content");
-    const title = formData.get("title");
-    const tag = formData.get("tag");
-  
     const newNoteData: NewNoteData = {
-      title: typeof title === "string" ? title : "",
-      content: typeof content === "string" ? content : "",
-      tag: typeof tag === "string" ? (tag as Tag) : "Todo",
+      title: formData.get("title") as string,
+      content: formData.get("content") as string,
+      tag: formData.get("tag") as Tag,
     };
-  
+
     mutate(newNoteData);
   };
+
   return (
     <>
       <form className={css.form} action={handleSubmit}>

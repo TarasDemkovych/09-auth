@@ -3,12 +3,12 @@
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { fetchNoteById } from "@/lib/api";
+
 import Modal from "@/components/Modal/Modal";
 import css from "./NotePreview.module.css";
+import { fetchNoteById } from "@/lib/api/clientApi";
 
-
-type NoteDetailsClientProps =  { id: number};
+type NoteDetailsClientProps = { id: string };
 
 export default function NoteDetailsClient({ id }: NoteDetailsClientProps) {
   const router = useRouter();
@@ -18,8 +18,8 @@ export default function NoteDetailsClient({ id }: NoteDetailsClientProps) {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["note", +id],
-    queryFn: () => fetchNoteById(+id),
+    queryKey: ["note", id],
+    queryFn: () => fetchNoteById(id),
     refetchOnMount: false,
   });
 
@@ -34,22 +34,24 @@ export default function NoteDetailsClient({ id }: NoteDetailsClientProps) {
     <Modal onClose={handleClose}>
       <div className={css.container}>
         <div className={css.item}>
-          <button onClick={handleClose} className={css.backBtn}>
-            go Back
-          </button>
           <div className={css.header}>
             <h2>{note?.title}</h2>
           </div>
           <p className={css.content}>{note.content}</p>
-          <p className={css.date}>
-            {note.updatedAt === note.createdAt
-              ? `Created at: ${new Date(note.createdAt).toLocaleString(
-                  "uk-UA"
-                )}`
-              : `Updated at: ${new Date(note.updatedAt).toLocaleString(
-                  "uk-UA"
-                )}`}
-          </p>
+          <div className={css.btnTimeBox}>
+            <button onClick={handleClose} className={css.backBtn}>
+              go Back
+            </button>
+            <p className={css.date}>
+              {note.updatedAt === note.createdAt
+                ? `Created at: ${new Date(note.createdAt).toLocaleString(
+                    "uk-UA"
+                  )}`
+                : `Updated at: ${new Date(note.updatedAt).toLocaleString(
+                    "uk-UA"
+                  )}`}
+            </p>{" "}
+          </div>
         </div>
       </div>
     </Modal>

@@ -8,7 +8,7 @@ export interface Note {
 }
 export interface NewNoteData {
   title: string;
-  content: string;
+  content?: string;
   tag: Tag;
 }
 export type Tag = "Todo" | "Work" | "Personal" | "Meeting" | "Shopping";

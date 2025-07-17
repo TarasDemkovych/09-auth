@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useAuthStore } from "@/lib/store/authStore";
 import { useRouter } from "next/navigation";
 
-export default function AuthLayout({
+export default function PublicLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
