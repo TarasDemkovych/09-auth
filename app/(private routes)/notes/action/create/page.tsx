@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: "Create New Note",
     description:
       "Effortlessly create a new note in NoteHub — the smart app for capturing and organizing your thoughts.",
-    url: "https://08-zustand-iota.vercel.app/action/create",
+    url: "https://http://localhost:3000/action/create",
     images: [
       {
         url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",

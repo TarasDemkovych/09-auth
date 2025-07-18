@@ -1,6 +1,6 @@
 import Link from "next/link";
 import css from "./SidebarNotes.module.css";
-import { tagMenu } from "@/app/const/constants";
+import { tagMenu } from "@/const/constants";
 
 export default function SidebarNotes() {
   return (

@@ -1,24 +1,20 @@
 import NotesClient from "./Notes.client";
 import { Metadata } from "next";
-import type { Tag } from "@/types/note";
 
 type Props = {
-  params: Promise<{ slug?: string[] }>;
+  params: Promise<{ slug: string[] }>;
 };
-
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const slugArray = Array.isArray(slug) && slug.length > 0 ? slug : ["All"];
-  const selectedTag = slugArray[0] === "All" ? undefined : slugArray[0];
-
+  const selectedTag = slug[0] === "All" ? undefined : slug[0];
   return {
-    title: `Notes${selectedTag ? ` - ${selectedTag}` : " - All Notes"}`,
+    title: `Notes${selectedTag ? ` - ${selectedTag}` : "All Notes"}`,
     description: `Notes filtered by ${selectedTag || "All Notes"}`,
     openGraph: {
-      title: `Notes${selectedTag ? ` - ${selectedTag}` : " - All Notes"}`,
+      title: `Notes${selectedTag ? ` - ${selectedTag}` : "All Notes"}`,
       description: `Notes filtered by ${selectedTag || "All Notes"}`,
-      url: `http://localhost:3000/${slugArray.join("/")}`,
+      url: `https://http://localhost:3000/notes/filter/${slug.join("/")}`,
       siteName: "NoteHub",
       images: [
         {
@@ -32,19 +28,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: `Notes${selectedTag ? ` - ${selectedTag}` : " - All Notes"}`,
+      title: `Notes${selectedTag ? ` - ${selectedTag}` : "All Notes"}`,
       description: `Notes filtered by ${selectedTag || "All Notes"}`,
       images: ["https://ac.goit.global/fullstack/react/notehub-og-meta.jpg"],
     },
   };
 }
 
-
 export default async function Notes({ params }: Props) {
   const { slug } = await params;
-  const slugArray = Array.isArray(slug) && slug.length > 0 ? slug : ["All"];
-  const selectedTag: Tag | undefined =
-    slugArray[0] === "All" ? undefined : (slugArray[0] as Tag);
+  const selectedTag = slug[0] === "All" ? undefined : slug[0];
 
   return <NotesClient tag={selectedTag} />;
 }

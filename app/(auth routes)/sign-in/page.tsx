@@ -1,8 +1,10 @@
 "use client";
+
+import { AuthRequest, login } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { AuthRequest, login } from "@/lib/api/clientApi";
+
 import css from "./SignIn.module.css";
 
 export default function SignIn() {

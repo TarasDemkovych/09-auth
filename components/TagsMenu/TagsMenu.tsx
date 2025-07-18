@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import css from "./TagsMenu.module.css";
 import Link from "next/link";
-import { tagMenu } from "@/app/const/constants";
+import { tagMenu } from "@/const/constants";
 
 export default function TagsMenu() {
   const [isOpen, setIsOpen] = useState(false);

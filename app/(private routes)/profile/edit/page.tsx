@@ -1,9 +1,12 @@
 "use client";
+
 import { useEffect, useState, ChangeEvent, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+
 import { checkSession, getMe, updateMe } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
+
 import css from "./EditProfileForm.module.css";
 
 export default function EditProfilePage() {
